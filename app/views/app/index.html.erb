@@ -2,7 +2,8 @@
 <html lang="en">
 <body>
 
-  <h1>TorOMG</h1>
+  <h1>Find da Fish</h1>
+  <h4>Explore the top sushi restaurants by number of Foursquare checkins</h4>
 
   <select id="city">
     <option value="New York, NY" selected="selected">New York, NY</option>
@@ -46,8 +47,18 @@
       width = 750,
       bar_height = 20,
       height = bar_height * names.length,
+      viewBox = "0 0 960 bar_height * names.length"
+      preserveAspectRatio="xMidYMid"
       left_width = 300,
       gap = 2;
+
+      var aspect = 960 / (bar_height * names.length),
+          chart = $("#chart");
+          $(window).on("resize", function() {
+            var targetWidth = chart.parent().width();
+            chart.attr("width", targetWidth);
+            chart.attr("height", targetWidth / aspect);
+          });
 
       var x = d3.scale.linear()
       .domain([0, d3.max(checkins)])
@@ -92,7 +103,7 @@
       .data(checkins)
       .enter().append("rect")
       .attr("x", left_width)
-      .attr("y", function(d) { /*console.log("y("+d+") = " + y(d))*/ return y(d) + gap; })
+      .attr("y", function(d) { return y(d) + gap; })
       .attr("width", x)
       .transition().delay(function (d,i){ return i * 10;})
       .duration(10)
@@ -119,12 +130,6 @@
       .attr('class', 'name')
       .text(String);
 
-      // d3.selectAll("text")
-      // .filter(function(d){ return typeof(d) == "string"; })
-      // .style("cursor", "pointer")
-      // .on("click", function(d){
-      //   document.location.href = "http://www.google.com/search?q" + d;
-      // });
     }
 
     $.ajax({
@@ -134,7 +139,5 @@
 
   });
 
-// first consolelog jquery wrapped html of text on click,
-// jquery text, on click get html, encode it, and then set window location to the google search
 </script>
 </body>

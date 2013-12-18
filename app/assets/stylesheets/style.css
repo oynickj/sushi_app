@@ -1,6 +1,7 @@
 .chart {
   background: #b0e0f8;
   margin: 5px;
+  text-align: right;
 }
 
 .chart rect {
@@ -14,6 +15,7 @@
 
 .chart text.name {
   fill: #000;
+  font: Georgia sans-serif;
 }
 
 .chart line {
