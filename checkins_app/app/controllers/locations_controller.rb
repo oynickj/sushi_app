@@ -24,3 +24,4 @@ class LocationsController < ApplicationController
   # end
 
 end
+
