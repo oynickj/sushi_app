@@ -2,7 +2,7 @@ class Foursquare
 
   def self.find(city, category_id) #can also write Foursquare for self
 
-    client = Foursquare2::Client.new(client_id: 'B1KPTBXUN3FML14LGZP5FWHTM14SXVYPE4XDSFC1W0AL5LUF', client_secret: 'DDLLYY3K4GBYCZSCFKWEXNM014NODHJWGTB33VYZXZC3FXU2')
+    client = Foursquare2::Client.new(client_id: 'B1KPTBXUN3FML14LGZP5FWHTM14SXVYPE4XDSFC1W0AL5LUF', client_secret: '')
     response = client.search_venues(near: city, categoryId: category_id).to_json
 
     sushi_venues_hash = JSON.parse(response)
