@@ -2,10 +2,10 @@
 <html lang="en">
 <body>
 
-  <h1>Find da Fish</h1>
-  <h4>Explore the top sushi restaurants by number of Foursquare checkins</h4>
+  <h1>Find da Foods</h1>
+  <h4>Explore the top restaurants in the U.S. by number of Foursquare checkins</h4>
 
-  <select id="city">
+  <select id="city" class="selection">
     <option value="New York, NY" selected="selected">New York, NY</option>
     <option value="Los Angeles, CA">Los Angeles, CA</option>
     <option value="Chicago, IL">Chicago, IL</option>
@@ -18,17 +18,29 @@
     <option value="Boston, MA">Boston, MA</option>
   </select>
 
+  <select id="category_id" class="selection">
+    <option value="4bf58dd8d48988d116941735" selected="selected">Bars</option>
+    <option value="4bf58dd8d48988d1d2941735">Sushi</option>
+    <option value="4bf58dd8d48988d151941735">Tacos</option>
+  </select>
+
 <div id="chart"></div>
   <script type="text/javascript">
 
-
   $(document ).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:3000/venues",
+      data: { city: "New York, NY", category_id: "4bf58dd8d48988d116941735" }
+    }).done(callback);
 
-  $( "#city" ).on("change", function (e) {
+
+
+  $( ".selection" ).on("change", function (e) {
     e.preventDefault();
     $( "#chart" ).empty();
-    var city = { city: $(this).val() };
-    $.post( "/locations/city", city, callback);
+    var data = { city: $("#city").val(), category_id: $("#category_id").val() };
+    $.get( "/venues", data, callback);
   });
 
     function callback(json) {
@@ -81,7 +93,7 @@
       .rangeBands([0, (bar_height + 2 * gap) * names.length]);
 
       chart.selectAll("line")
-      .data(x.ticks((d3.max(checkins))/1000))
+      .data(x.ticks((d3.max(checkins))/2000))
       .enter().append("line")
       .attr("x1", function(d) { return x(d) + left_width; })
       .attr("x2", function(d) { return x(d) + left_width; })
@@ -89,7 +101,7 @@
       .attr("y2", (bar_height + gap * 2) * checkins.length);
 
       chart.selectAll(".rule")
-      .data(x.ticks((d3.max(checkins))/1000))
+      .data(x.ticks((d3.max(checkins))/2000))
       .enter().append("text")
       .attr("class", "rule")
       .attr("x", function(d) { return x(d) + left_width; })
@@ -131,12 +143,6 @@
       .text(String);
 
     }
-
-    $.ajax({
-      type: "GET",
-      url: "http://localhost:3000/locations",
-    }).done(callback);
-
   });
 
 </script>
