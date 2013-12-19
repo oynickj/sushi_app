@@ -2,8 +2,8 @@
 <html lang="en">
 <body>
 
-  <h1>Find da Foods</h1>
-  <h4>Explore the top restaurants in the U.S. by number of Foursquare checkins</h4>
+  <h1>Find da Foods (and other cool stuff)</h1>
+  <h4>Explore the top restaurants (and other cool stuff) in cities across the world by number of Foursquare checkins</h4>
 
   <select id="city" class="selection">
     <option value="New York, NY" selected="selected">New York, NY</option>
@@ -16,12 +16,26 @@
     <option value="Miami, FL">Miami, FL</option>
     <option value="Atlanta, GA">Atlanta, GA</option>
     <option value="Boston, MA">Boston, MA</option>
+    <option value="Fargo, ND">Fargo, ND</option>
+    <option value="Mexico City, MX">Mexico City, MX</option>
+    <option value="Paris, FR">Paris, FR</option>
   </select>
 
   <select id="category_id" class="selection">
     <option value="4bf58dd8d48988d116941735" selected="selected">Bars</option>
     <option value="4bf58dd8d48988d1d2941735">Sushi</option>
     <option value="4bf58dd8d48988d151941735">Tacos</option>
+    <option value="4bf58dd8d48988d143941735">Breakfast</option>
+    <option value="4bf58dd8d48988d1c9941735">Ice Cream</option>
+    <option value="4bf58dd8d48988d18e941735">Comedy Clubs</option>
+    <option value="4bf58dd8d48988d1e7931735">Jazz Clubs</option>
+    <option value="4bf58dd8d48988d16d941735">Cafés</option>
+    <option value="4bf58dd8d48988d1c2941735">Molecular Gastronomy</option>
+
+
+
+
+
   </select>
 
 <div id="chart"></div>
@@ -93,7 +107,7 @@
       .rangeBands([0, (bar_height + 2 * gap) * names.length]);
 
       chart.selectAll("line")
-      .data(x.ticks((d3.max(checkins))/2000))
+      .data(x.ticks((d3.max(checkins))/((1/10)*d3.max(checkins))))
       .enter().append("line")
       .attr("x1", function(d) { return x(d) + left_width; })
       .attr("x2", function(d) { return x(d) + left_width; })
@@ -101,7 +115,7 @@
       .attr("y2", (bar_height + gap * 2) * checkins.length);
 
       chart.selectAll(".rule")
-      .data(x.ticks((d3.max(checkins))/2000))
+      .data(x.ticks((d3.max(checkins))/((1/10)*d3.max(checkins))))
       .enter().append("text")
       .attr("class", "rule")
       .attr("x", function(d) { return x(d) + left_width; })
